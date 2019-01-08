@@ -1,9 +1,9 @@
 import { Recipe } from './recipe';
-import { EventEmitter } from '@angular/core';
 import { Ingredient } from '../shared/ingredient';
+import { Subject } from 'rxjs';
 
 export class RecipeService{
-    recipeSelected = new EventEmitter<Recipe>()
+    recipesChanged = new Subject<Recipe[]>()
     private recipes: Recipe[] = [
     new Recipe('First Recipe', 
     'Desc of my first recipe', 
@@ -26,6 +26,18 @@ export class RecipeService{
     }
     getRecipeById(id: number){
         return this.recipes[id]
+    }
+    addRecipe(newRecipe: Recipe){
+        this.recipes.push(newRecipe)
+        this.recipesChanged.next(this.recipes.slice())
+    }
+    updateRecipe(index: number, newRecipe: Recipe){
+        this.recipes[index] = newRecipe
+        this.recipesChanged.next(this.recipes.slice())
+    }
+    deleteRecipe(index:number){
+        this.recipes.splice(index,1)
+        this.recipesChanged.next(this.recipes.slice())
     }
 
 }

@@ -1,0 +1,5 @@
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched{
+    box-sizing: border-box;
+    border: solid rgb(218, 48, 48) 1px;
+}
