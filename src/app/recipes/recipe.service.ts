@@ -1,8 +1,12 @@
-import { Recipe } from './recipe';
-import { Ingredient } from '../shared/ingredient';
 import { Subject } from 'rxjs';
 
+import { Recipe } from './recipe';
+import { Ingredient } from '../shared/ingredient';
+
 export class RecipeService{
+
+    constructor(){}
+
     recipesChanged = new Subject<Recipe[]>()
     private recipes: Recipe[] = [
     new Recipe('First Recipe', 
@@ -38,6 +42,10 @@ export class RecipeService{
     deleteRecipe(index:number){
         this.recipes.splice(index,1)
         this.recipesChanged.next(this.recipes.slice())
+    }
+    updateRecipes(newRecipes: Recipe[]){
+       this.recipes = newRecipes
+       this.recipesChanged.next(this.recipes.slice())
     }
 
 }
