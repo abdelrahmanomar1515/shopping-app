@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
@@ -90,6 +90,7 @@ export class RecipeEditComponent implements OnInit {
 
     })
   }
+  get recipeFormIngredients() { return <FormArray>this.recipeForm.get('Ingredients'); }
   
 
 }

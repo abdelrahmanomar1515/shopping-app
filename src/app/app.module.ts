@@ -22,7 +22,7 @@ import { HomeComponent } from './home/home.component';
     HomeComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'my-app'}),
     ShoppingListModule,
     AuthModule,
     AppRoutingModule,

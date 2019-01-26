@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { NgForm } from '@angular/forms'
 
-import { Ingredient } from 'src/app/shared/ingredient';
+import { Ingredient } from './../../shared/ingredient';
 import { ShoppingListService } from '../shopping-list.service';
 import { Subscription } from 'rxjs';
 
