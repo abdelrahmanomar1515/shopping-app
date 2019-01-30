@@ -1,1 +1,2 @@
-<h3>Please select a recipe</h3>
+<h3 *ngIf="isAuthenticated()">Please select a recipe</h3>
+<h5 *ngIf="!isAuthenticated()">Please <a routerLink="/signin">sign in</a> or <a routerLink="/signup">sign up</a> to see recipe detail or to add or edit recipes.</h5>

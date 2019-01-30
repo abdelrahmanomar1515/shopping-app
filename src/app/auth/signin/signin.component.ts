@@ -11,11 +11,15 @@ export class SigninComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
+  singinSuccess = false
   ngOnInit() {
   }
   onSignin(form: NgForm){
     const email = form.value.email
     const password = form.value.password
     this.authService.signinUser(email,password)
+  }
+  sigininError(){
+    return this.authService.signinErrorExists()
   }
 }
