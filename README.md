@@ -1,7 +1,7 @@
 # ShoppingApp
 
 A Web-app for storing recipes online.
-You can find the working app here https://enigmatic-wave-42129.herokuapp.com/
+You can find the working app [here](https://enigmatic-wave-42129.herokuapp.com)
 
 ## How to use the app
 
