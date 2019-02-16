@@ -5,7 +5,7 @@ You can find the working app here https://enigmatic-wave-42129.herokuapp.com/
 
 ## How to use the app
 
-You can view all the recipes added to the app, but to modfify recipes or see recipes details you need to be logged in.
+You can view all the recipes added to the app, but to modify recipes or see recipe details you need to be logged in.
 
 ## Development server
 
