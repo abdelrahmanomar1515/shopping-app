@@ -14,6 +14,8 @@ import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { AuthModule } from './auth/auth.module';
 import { HomeComponent } from './home/home.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/app.reducers';
 
 @NgModule({
   declarations: [
@@ -22,14 +24,20 @@ import { HomeComponent } from './home/home.component';
     HomeComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'my-app'}),
+    BrowserModule.withServerTransition({ appId: 'my-app' }),
     ShoppingListModule,
     AuthModule,
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
   ],
-  providers: [ShoppingListService,RecipeService,DataStorageService,AuthService, AuthGuard],
+  providers: [ShoppingListService, RecipeService, DataStorageService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

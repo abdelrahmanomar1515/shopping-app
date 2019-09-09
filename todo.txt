@@ -1,1 +1,3 @@
+- fix presistent singin error msg
 - add animations
+
