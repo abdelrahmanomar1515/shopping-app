@@ -1,21 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthGuard } from './auth/auth-guard.service';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
 import { HeaderComponent } from './header/header.component';
-import { ShoppingListService } from './shopping-list/shopping-list.service';
+import { HomeComponent } from './home/home.component';
 import { RecipeService } from './recipes/recipe.service';
 import { DataStorageService } from './shared/data-storage.service';
-import { AuthService } from './auth/auth.service';
-import { AuthGuard } from './auth/auth-guard.service';
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
-import { AuthModule } from './auth/auth.module';
-import { HomeComponent } from './home/home.component';
-import { StoreModule } from '@ngrx/store';
-import { reducers } from './store/app.reducers';
+import { ShoppingListService } from './shopping-list/shopping-list.service';
 
 @NgModule({
   declarations: [
@@ -25,17 +25,13 @@ import { reducers } from './store/app.reducers';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app' }),
+    StoreModule.forRoot({}),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     ShoppingListModule,
     AuthModule,
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    StoreModule.forRoot(reducers, {
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true
-      }
-    }),
   ],
   providers: [ShoppingListService, RecipeService, DataStorageService, AuthService, AuthGuard],
   bootstrap: [AppComponent]

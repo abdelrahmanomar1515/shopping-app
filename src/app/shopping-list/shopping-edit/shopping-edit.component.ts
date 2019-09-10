@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import * as fromApp from '../../store/app.reducers';
-import * as ShoppingListActions from '../store/shopping-list.actions';
+import { State } from 'src/app/store/state';
+import { ShoppingListActions, ShoppingListSelectors } from '../store';
 import { Ingredient } from './../../shared/ingredient';
 
 
@@ -20,10 +20,12 @@ export class ShoppingEditComponent implements OnInit {
   editMode = false;
   @ViewChild('f') shoppingListForm: NgForm;
 
-  constructor(private store: Store<fromApp.State>) { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
-    this.shoppingListSubscription = this.store.select('shoppingList')
+    this.shoppingListSubscription = this.store.pipe(
+      select(ShoppingListSelectors.selectShoppingListState)
+    )
       .subscribe(shoppingList => {
         if (shoppingList.editedIngredientIndex > -1) {
           this.ingUnderEdit = shoppingList.editedIngredient;
@@ -40,20 +42,21 @@ export class ShoppingEditComponent implements OnInit {
   onFormSubmit(form: NgForm) {
     const newIng = new Ingredient(form.value.name, form.value.amount);
     if (this.editMode) {
-      this.store.dispatch(new ShoppingListActions.UpdateIngredient({ ingredient: newIng }));
+      this.store.dispatch(ShoppingListActions.updateIngredient({ ingredient: newIng }));
     } else {
-      this.store.dispatch(new ShoppingListActions.AddIngredient(newIng));
+      this.store.dispatch(ShoppingListActions.addIngredient({ ingredient: newIng }));
     }
     this.editMode = false;
     this.shoppingListForm.reset();
   }
   onDeleteItem() {
-    this.store.dispatch(new ShoppingListActions.DeleteIngredient())
+    this.store.dispatch(ShoppingListActions.deleteIngredient())
     this.shoppingListForm.reset();
     this.editMode = false;
   }
   onClear() {
     this.shoppingListForm.reset();
+    this.editMode = false;
   }
   ngOnDestroy() {
     this.shoppingListSubscription.unsubscribe();
