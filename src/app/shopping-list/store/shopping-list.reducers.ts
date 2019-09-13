@@ -55,5 +55,3 @@ const shoppingListReducer = createReducer(
 export function reducer(state: ShoppingListState.State, action: Action) {
   return shoppingListReducer(state, action);
 }
-
-export const shoppingListFeatureKey = 'shoppingList';

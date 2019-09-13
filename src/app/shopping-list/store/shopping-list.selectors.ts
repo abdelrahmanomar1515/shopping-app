@@ -1,8 +1,8 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { AppState } from '../../store/state';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ShoppingListState } from '.';
+import { shoppingListFeatureKey } from 'src/app/store/state';
 
-export const selectShoppingListState = createFeatureSelector<AppState, ShoppingListState.State>('shoppingList');
+export const selectShoppingListState = createFeatureSelector<ShoppingListState.State>(shoppingListFeatureKey);
 
 export const selectShoppingListIngredients = createSelector(
     selectShoppingListState,

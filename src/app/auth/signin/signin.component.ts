@@ -1,25 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/store/state';
+import { AuthActions, AuthSelectors } from '../store';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
-export class SigninComponent implements OnInit {
+export class SigninComponent implements OnInit, OnDestroy {
 
-  constructor(private authService: AuthService) { }
+  signinError$: Observable<string>;
 
-  singinSuccess = false
+  constructor(private store: Store<AppState>) { }
+
   ngOnInit() {
+    this.signinError$ = this.store.pipe(select(AuthSelectors.selectSigninError));
   }
-  onSignin(form: NgForm){
-    const email = form.value.email
-    const password = form.value.password
-    this.authService.signinUser(email,password)
+
+  onSignin(form: NgForm) {
+    const email = form.value.email;
+    const password = form.value.password;
+    this.store.dispatch(AuthActions.attemptSignin({ email, password }));
   }
-  sigininError(){
-    return this.authService.signinErrorExists()
+  ngOnDestroy(): void {
+    this.store.dispatch(AuthActions.clearSigninError());
   }
 }

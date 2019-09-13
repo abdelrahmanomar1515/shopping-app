@@ -1,30 +1,31 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/store/state';
+import { AuthActions, AuthSelectors } from '../store';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit,OnDestroy {
-  errorMessage :string = null
-  constructor(private authService: AuthService) { }
+export class SignupComponent implements OnInit, OnDestroy {
+  signupError$: Observable<string>;
+
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+    this.signupError$ = this.store.pipe(select(AuthSelectors.selectSignupError));
   }
-  onSignup(form: NgForm){
-    const email = form.value.email
-    const password = form.value.password
-    this.authService.signupUser(email,password)
+
+  onSignup(form: NgForm) {
+    const email = form.value.email;
+    const password = form.value.password;
+    this.store.dispatch(AuthActions.attemptSignup({ email, password }));
   }
-  siginupError(){
-    if (this.authService.signupErrorExists()){
-      this.errorMessage = this.authService.signupError
-      return this.errorMessage != null
-    }
-  }
-  ngOnDestroy(){
-    this.authService.clearSignupError()
+
+  ngOnDestroy() {
+    this.store.dispatch(AuthActions.clearSignupError());
   }
 }

@@ -14,7 +14,7 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto mr-2">
-      <ng-template [ngIf]="!isAuthenticated()">
+      <ng-template [ngIf]="!(isAuthenticated$ | async)">
           <li class="nav-item" routerLinkActive="active">
               <a routerLink="/signup" class="nav-link">Sign Up</a>
             </li>
@@ -22,10 +22,10 @@
               <a routerLink="/signin" class="nav-link">Sign In</a>
           </li>
       </ng-template>
-      <li class="nav-item" *ngIf="isAuthenticated()">
+      <li class="nav-item" *ngIf="(isAuthenticated$ | async)">
          <a style="cursor: pointer;" class="nav-link" (click)="onSignout()">Sign Out</a>
       </li>
-      <li class="nav-item dropdown" appDropdown *ngIf="isAuthenticated()">
+      <li class="nav-item dropdown" appDropdown *ngIf="(isAuthenticated$ | async)">
         <a class="nav-link dropdown-toggle" style="cursor: pointer;" id="navbarDropdownMenuLink" role="button"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Manage

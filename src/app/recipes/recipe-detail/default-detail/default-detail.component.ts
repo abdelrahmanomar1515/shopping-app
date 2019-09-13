@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './../../../../../src/app/auth/auth.service';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
+import { AuthSelectors } from 'src/app/auth/store';
+import { AppState } from 'src/app/store/state';
 
 @Component({
   selector: 'app-default-detail',
@@ -8,13 +12,15 @@ import { AuthService } from './../../../../../src/app/auth/auth.service';
 })
 export class DefaultDetailComponent implements OnInit {
 
-  constructor(private authService:AuthService) { }
+  isAuthenticated$: Observable<boolean>;
 
-  isAuthenticated(){
-    return this.authService.isAuthenticated()
-  }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+    this.isAuthenticated$ = this.store.pipe(
+      select(AuthSelectors.selectIsAuthenticated),
+      share()
+    );
   }
 
 }

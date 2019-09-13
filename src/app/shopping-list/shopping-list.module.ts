@@ -6,6 +6,7 @@ import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
 import { ShoppingListComponent } from './shopping-list.component';
 import { StoreModule } from '@ngrx/store';
 import * as ShoppingListReducers from './store/shopping-list.reducers';
+import { shoppingListFeatureKey } from '../store/state';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import * as ShoppingListReducers from './store/shopping-list.reducers';
   imports: [
     CommonModule,
     FormsModule,
-    StoreModule.forFeature(ShoppingListReducers.shoppingListFeatureKey, ShoppingListReducers.reducer)
+    StoreModule.forFeature(shoppingListFeatureKey, ShoppingListReducers.reducer)
   ]
 })
 export class ShoppingListModule { }

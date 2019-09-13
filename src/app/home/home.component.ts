@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AuthSelectors } from '../auth/store';
+import { AppState } from '../store/state';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +10,13 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(private authService:AuthService) { }
+
+  isAuthenticated$: Observable<boolean>;
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-  }
-  isAuthenticated(){
-    return this.authService.isAuthenticated()
+    this.isAuthenticated$ = this.store.pipe(
+      select(AuthSelectors.selectIsAuthenticated)
+    );
   }
 }
