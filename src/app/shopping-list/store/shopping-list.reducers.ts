@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import * as ShoppingListActions from './shopping-list.actions';
-import { initialState, ShoppingListState } from './shopping-list.state';
+import { ShoppingListActions, ShoppingListState } from '.';
+import { initialState } from './shopping-list.state';
 
 const shoppingListReducer = createReducer(
   initialState,
@@ -52,7 +52,7 @@ const shoppingListReducer = createReducer(
   })),
 );
 
-export function reducer(state: ShoppingListState | undefined, action: Action) {
+export function reducer(state: ShoppingListState.State, action: Action) {
   return shoppingListReducer(state, action);
 }
 

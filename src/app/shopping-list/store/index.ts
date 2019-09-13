@@ -5,5 +5,5 @@ import * as ShoppingListState from './shopping-list.state';
 export {
   ShoppingListActions,
   ShoppingListSelectors,
-  ShoppingListState
-}
+  ShoppingListState,
+};

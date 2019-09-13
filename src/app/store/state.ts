@@ -1,5 +1,5 @@
 import { ShoppingListState } from '../shopping-list/store'
 
-export interface State {
-    shoppingList: ShoppingListState.ShoppingListState
+export interface AppState {
+    shoppingList: ShoppingListState.State;
 }

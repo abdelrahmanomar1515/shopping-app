@@ -1,13 +1,13 @@
 import { Ingredient } from 'src/app/shared/ingredient';
 
 
-export interface ShoppingListState {
+export interface State {
   ingredients: Ingredient[];
   editedIngredient: Ingredient;
   editedIngredientIndex: number;
 }
 
-export const initialState: ShoppingListState = {
+export const initialState: State = {
   ingredients: [
     new Ingredient('Apples', 5),
     new Ingredient('Tomatoes', 10),
